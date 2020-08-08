@@ -1,0 +1,86 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_xlider/flutter_xlider.dart';
+
+import '../../config/data.dart' as data;
+import '../../config/theme.dart' as theme;
+
+class Dashboard extends StatefulWidget {
+  Dashboard({Key key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _Home();
+}
+
+class _Home extends State<Dashboard> {
+  Timer _timer;
+
+  void getTemp() {
+    data.getLocalTemp();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getTemp();
+    _timer = Timer.periodic(Duration(seconds: 5), (Timer t) => getTemp());
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (data.localTemp < 0) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return Scaffold(body: Container(child: Center(child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return Container(
+          height: constraints.maxHeight < constraints.maxWidth
+              ? constraints.maxHeight
+              : constraints.maxWidth,
+          child: Row(children: [
+            Container(width: constraints.maxWidth / 3),
+            Container(
+                width: constraints.maxWidth / 3,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FloatingActionButton(
+                          onPressed: () =>
+                              setState(() => data.changeThermostatMode()),
+                          child: theme.thermostatModeIcon[data.thermostatMode]),
+                      Text('${data.localTemp}',
+                          style: Theme.of(context).textTheme.headline1.apply(
+                              color: data.localTemp != data.localTempTarget
+                                  ? theme.warningRed
+                                  : theme.themedBlack))
+                    ])),
+            Container(
+                width: constraints.maxWidth / 3,
+                child: Row(children: [
+                  FlutterSlider(
+                      max: 82,
+                      min: 62,
+                      values: [data.localTempTarget.toDouble()],
+                      handler: FlutterSliderHandler(
+                          child: Text('${data.localTempTarget}',
+                              style: Theme.of(context).textTheme.headline6)),
+                      handlerHeight: 40,
+                      axis: Axis.vertical,
+                      rtl: true,
+                      tooltip: FlutterSliderTooltip(disabled: true),
+                      onDragging: (handlerIndex, lowerValue, upperValue) {
+                        data.localTempTarget = lowerValue.round();
+                        setState(() {});
+                      })
+                ]))
+          ]));
+    }))));
+  }
+}

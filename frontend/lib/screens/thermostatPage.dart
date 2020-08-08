@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../widgets/navigationdrawer.dart';
 
-import './thermostat/homeTab.dart';
+import './thermostat/dashboardTab.dart';
 import './thermostat/tempsTab.dart';
 
-class Thermostat extends StatelessWidget {
+class ThermostatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -19,9 +19,9 @@ class Thermostat extends StatelessWidget {
                 icon: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.home),
+                      Icon(Icons.dashboard),
                       Padding(padding: EdgeInsets.all(5)),
-                      Text('Home')
+                      Text('Dashboard')
                     ]),
               ),
               Tab(
@@ -47,7 +47,7 @@ class Thermostat extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Home(),
+            Dashboard(),
             Temps(),
             Icon(Icons.multiline_chart),
           ],

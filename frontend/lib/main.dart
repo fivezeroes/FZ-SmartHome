@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import './screens/dashboardPage.dart';
+import './screens/homePage.dart';
 
 void main() => runApp(FZ_SmartHome());
 
@@ -12,7 +12,7 @@ class FZ_SmartHome extends StatelessWidget {
     //SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashboardPage(),
+      home: HomePage(),
     );
   }
 }
