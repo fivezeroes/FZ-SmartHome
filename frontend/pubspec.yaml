@@ -1,5 +1,5 @@
-name: frontend
-description: A new Flutter project.
+name: FZ_SmartHome
+description: A Flutter based frontend for a smart home infrastructure designed by Cody Stammers(FiveZeroes)
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
