@@ -58,8 +58,11 @@ class _Home extends State<Dashboard> {
                       Text('${data.localTemp}',
                           style: Theme.of(context).textTheme.headline1.apply(
                               color: data.localTemp != data.localTempTarget
-                                  ? theme.warningRed
-                                  : theme.themedBlack))
+                                  ? Theme.of(context).errorColor
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .headline1
+                                      .color))
                     ])),
             Container(
                 width: constraints.maxWidth / 3,
@@ -69,12 +72,18 @@ class _Home extends State<Dashboard> {
                       min: 62,
                       values: [data.localTempTarget.toDouble()],
                       handler: FlutterSliderHandler(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).cardColor),
                           child: Text('${data.localTempTarget}',
                               style: Theme.of(context).textTheme.headline6)),
                       handlerHeight: 40,
                       axis: Axis.vertical,
                       rtl: true,
                       tooltip: FlutterSliderTooltip(disabled: true),
+                      trackBar: FlutterSliderTrackBar(
+                          activeTrackBar: BoxDecoration(
+                              color: Theme.of(context).accentColor)),
                       onDragging: (handlerIndex, lowerValue, upperValue) {
                         data.localTempTarget = lowerValue.round();
                         setState(() {});

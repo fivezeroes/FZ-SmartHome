@@ -5,54 +5,31 @@ import '../widgets/navigationdrawer.dart';
 import './thermostat/dashboardTab.dart';
 import './thermostat/tempsTab.dart';
 
-class ThermostatPage extends StatelessWidget {
+class ThermostatPage extends StatefulWidget {
+  @override
+  _ThermostatPage createState() => _ThermostatPage();
+}
+
+class _ThermostatPage extends State<ThermostatPage> {
+  PageController _controller = PageController(
+    initialPage: 0,
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        drawer: NavigagtionDrawer(),
-        appBar: AppBar(
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                icon: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.dashboard),
-                      Padding(padding: EdgeInsets.all(5)),
-                      Text('Dashboard')
-                    ]),
-              ),
-              Tab(
-                icon: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.ac_unit),
-                      Padding(padding: EdgeInsets.all(5)),
-                      Text('Temps')
-                    ]),
-              ),
-              Tab(
-                icon:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Icon(Icons.multiline_chart),
-                  Padding(padding: EdgeInsets.all(5)),
-                  Text('History')
-                ]),
-              ),
-            ],
-          ),
-          title: Text('Thermostat'),
-        ),
-        body: TabBarView(
-          children: [
-            Dashboard(),
-            Temps(),
-            Icon(Icons.multiline_chart),
-          ],
-        ),
-      ),
-    );
+    return Scaffold(
+        drawer: NavigationDrawer(),
+        drawerEdgeDragWidth: MediaQuery.of(context).size.width / 5,
+        body: PageView(controller: _controller, children: [
+          Dashboard(),
+          Temps(),
+          Icon(Icons.multiline_chart),
+        ]));
   }
 }

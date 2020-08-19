@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 String _serverUrl = 'http://192.168.1.9:5000';
-int localTemp = -1;
+int localTemp = 72;
 int localTempTarget = 72;
 
 int thermostatMode = 1; //0=off, 1=fan, 2=AC, 3=Heat

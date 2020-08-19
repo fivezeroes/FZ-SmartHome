@@ -4,7 +4,7 @@ import './createroute.dart';
 import '../screens/homePage.dart';
 import '../screens/thermostatPage.dart';
 
-class NavigagtionDrawer extends StatelessWidget {
+class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -12,9 +12,8 @@ class NavigagtionDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-              child: Text('FZ-SmartHome',
-                  textScaleFactor: 2, style: TextStyle(color: Colors.white)),
-              decoration: BoxDecoration(color: Colors.blue)),
+              child: Text('FZ-SmartHome', textScaleFactor: 2),
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor)),
           ListTile(
               title: Row(children: [
                 Icon(Icons.home),

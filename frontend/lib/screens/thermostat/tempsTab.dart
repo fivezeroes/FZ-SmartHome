@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../config/theme.dart' as theme;
-
 class Temps extends StatelessWidget {
   final Map<String, Map<String, int>> _temps = {
     'Master Bedroom': {'target': 72, 'actual': 72},
@@ -30,8 +28,8 @@ class Temps extends StatelessWidget {
                                         _temps[room]['target'] + 1 ||
                                     _temps[room]['actual'] <
                                         _temps[room]['target'] - 1
-                                ? theme.warningRed
-                                : theme.themedBlack))
+                                ? Theme.of(context).errorColor
+                                : Theme.of(context).textTheme.headline5.color))
                   ]))
             ])
         ],
