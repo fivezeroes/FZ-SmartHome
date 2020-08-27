@@ -1,38 +1,26 @@
 import time
 from flask import Flask, jsonify
 from multiprocessing import Process, Value
+from w1thermsensor import W1ThermSensor
+
+sensor = W1ThermSensor()
 
 app = Flask(__name__)
-value = Value('i', 72)
-@app.route('/decrement', methods=['POST'])
-def decrement():
-    value.value -= 1
-    return jsonify(value.value)
-
-@app.route('/increment', methods=['POST'])
-def increment():
-    value.value += 1
-    return jsonify(value.value)
+value = Value('d', 0.0)
 
 @app.route('/')
 def getValue():
     return jsonify(value.value)
 
-def printValue():
+def sensorDaemon():
     while True:
-        print(time.asctime(), "value is:", value.value)
-        time.sleep(5)
-
-def func(value):
-    while True:
-        value.value += 1
-        print(value.value)
+        value.value = sensor.get_temperature()
+        tempF = ((value.value*9)/5)+32
+        print(time.asctime(), "value is:", value.value, tempF)
+        time.sleep(1)
 
 if __name__ == "__main__":
-   #procs = [Process(target=func, args=(value, )) for i in range(8)]
-   #for proc in procs: proc.start()
-   #for proc in procs: proc.join()
-   p = Process(target=printValue, args=())
+   p = Process(target=sensorDaemon, args=())
    p.start()
    app.run(debug=False, use_reloader=False, host='0.0.0.0')
    p.join()
