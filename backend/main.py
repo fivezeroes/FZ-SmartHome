@@ -1,7 +1,21 @@
-import time
+from time import sleep, asctime
 from flask import Flask, jsonify
 from multiprocessing import Process, Value
 from w1thermsensor import W1ThermSensor
+import datetime
+import mysql.connector
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+host = config['mysql']['host']
+user = config['mysql']['user']
+password = config['mysql']['password']
+database = config['mysql']['database']
+
+mydb = mysql.connector.connect(host=host, user=user, password=password, database=database)
+mycursor = mydb.cursor()
+
 
 sensor = W1ThermSensor()
 
@@ -14,10 +28,17 @@ def getValue():
 
 def sensorDaemon():
     while True:
+        time = datetime.datetime.now()
         value.value = sensor.get_temperature()
         tempF = ((value.value*9)/5)+32
-        print(time.asctime(), "value is:", value.value, tempF)
-        time.sleep(1)
+        sql = "INSERT INTO temps (time, temp) VALUES (%s, %s)"
+        val = (time, value.value)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        print(asctime(), "value is:", value.value, tempF)
+        sleep(1)
+    mycursor.close()
+    mydb.close()
 
 if __name__ == "__main__":
    p = Process(target=sensorDaemon, args=())
