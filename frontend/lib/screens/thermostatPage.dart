@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/navigationdrawer.dart';
+import 'package:FZ_SmartHome/widgets/navigationdrawer.dart';
 
-import './thermostat/dashboardTab.dart';
-import './thermostat/tempsTab.dart';
+import 'package:FZ_SmartHome/screens/thermostat/dashboardTab.dart';
+import 'package:FZ_SmartHome/screens/thermostat/tempsTab.dart';
+import 'package:FZ_SmartHome/screens/thermostat/chartsTab.dart';
 
 class ThermostatPage extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _ThermostatPage extends State<ThermostatPage> {
         body: PageView(controller: _controller, children: [
           Dashboard(),
           Temps(),
-          Icon(Icons.multiline_chart),
+          Charts(),
         ]));
   }
 }

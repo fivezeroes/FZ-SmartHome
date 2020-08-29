@@ -2,12 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 
-import '../../config/data.dart' as data;
-import '../../config/theme.dart' as theme;
+import 'package:FZ_SmartHome/config/data.dart' as data;
+import 'package:FZ_SmartHome/config/theme.dart' as theme;
 
 class Dashboard extends StatefulWidget {
-  Dashboard({Key key}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _Home();
 }
@@ -24,7 +22,7 @@ class _Home extends State<Dashboard> {
   void initState() {
     super.initState();
     getTemp();
-    _timer = Timer.periodic(Duration(seconds: 5), (Timer t) => getTemp());
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer t) => getTemp());
   }
 
   @override

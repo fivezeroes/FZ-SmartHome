@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './createroute.dart';
-import '../screens/homePage.dart';
-import '../screens/thermostatPage.dart';
+import 'package:FZ_SmartHome/widgets/createroute.dart';
+import 'package:FZ_SmartHome/screens/homePage.dart';
+import 'package:FZ_SmartHome/screens/thermostatPage.dart';
+import 'package:FZ_SmartHome/screens/settingsPage.dart';
 
 class NavigationDrawer extends StatelessWidget {
   @override
@@ -29,7 +30,15 @@ class NavigationDrawer extends StatelessWidget {
                 Text('Thermostat')
               ]),
               onTap: () => Navigator.pushReplacement(
-                  context, createRoute(ThermostatPage())))
+                  context, createRoute(ThermostatPage()))),
+          ListTile(
+              title: Row(children: [
+                Icon(Icons.settings),
+                Padding(padding: EdgeInsets.all(5)),
+                Text('Settings')
+              ]),
+              onTap: () => Navigator.pushReplacement(
+                  context, createRoute(SettingsPage())))
         ],
       ),
     );

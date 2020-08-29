@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/navigationdrawer.dart';
-import '../config/data.dart' as data;
+import 'package:FZ_SmartHome/widgets/navigationdrawer.dart';
+import 'package:FZ_SmartHome/config/data.dart' as data;
 
 class HomePage extends StatelessWidget {
   @override
@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         drawer: NavigationDrawer(),
         drawerEdgeDragWidth: MediaQuery.of(context).size.width / 5,
-        //appBar: AppBar(title: Text('Home')),
         body: Center(
             child: Text(
                 'this is the Home page. Current local temp is: ${data.localTemp}')));

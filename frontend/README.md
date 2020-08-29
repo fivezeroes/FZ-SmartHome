@@ -16,6 +16,8 @@ A Flutter based frontend for a smart home infrastructure designed by Cody Stamme
  - implement other room thermostats
  - create settings page and store settings locally
  - create homepage/dashboard
+ - write documentation
+ - modularize data transmission
  ## Planned Sections:
  
  - Thermostat
